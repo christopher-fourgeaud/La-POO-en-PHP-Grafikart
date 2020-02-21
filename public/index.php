@@ -1,8 +1,10 @@
 <?php
 
+use App\Database;
+
 require '../app/Autoloader.php';
 
-APP\Autoloader::register();
+App\Autoloader::register();
 
 if (isset($_GET['p'])) {
     $p = $_GET['p'];
@@ -10,12 +12,15 @@ if (isset($_GET['p'])) {
     $p = 'home';
 }
 
+// Initialisation des objets
+$db = new Database('bdd-test');
+
 ob_start();
 
 if ($p === 'home') {
     require '../pages/home.php';
-} elseif ($p === 'single') {
-    require '../pages/single.php';
+} elseif ($p === 'article') {
+    require '../pages/article.php';
 }
 
 $content = ob_get_clean();

@@ -1,3 +1,16 @@
-<h1>Je suis la home page</h1>
+<?php foreach ($data = $db->query(
+    'SELECT *
+FROM articles',
+    'App\Table\Article'
+) as $post) : ?>
 
-<p><a href="index.php?p=single">Single</a></p>
+    <h2>
+        <a href="<?= $post->getUrl() ?>"><?= $post->titre ?></a>
+    </h2>
+
+    <p>
+        <?= $post->getExtrait() ?>
+    </p>
+
+
+<?php endforeach ?>
