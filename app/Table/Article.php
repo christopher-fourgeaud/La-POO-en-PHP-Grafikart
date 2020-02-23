@@ -2,25 +2,56 @@
 
 namespace App\Table;
 
-class Article
+use App\App;
+use App\Table\Table;
+
+class Article extends Table
 {
 
-    /**
-     * Undocumented function
-     *
-     * @param string $key
-     * @return string
-     */
-    public function __get(string $key): string
+    protected static $table = 'articles';
+
+    public static function getAllArticles()
     {
-        $method = 'get' . ucfirst($key);
-
-        $this->$key = $this->$method;
-        var_dump($this->$key);
-
-        return $this->$key;
+        return self::query(
+            "SELECT articles.id, articles.titre, articles.contenu, categories.titre as categorie
+            FROM articles
+            LEFT JOIN categories
+                ON category_id = categories.id
+            ORDER BY articles.date DESC"
+        );
     }
 
+    /**
+     * Retourne un élément d'une table
+     *
+     * @param int $id
+     * @return void
+     */
+    public static function find($id)
+    {
+        return self::query(
+            "SELECT articles.id, articles.titre, articles.contenu, categories.titre as categorie
+            FROM articles
+            LEFT JOIN categories
+                ON category_id = categories.id
+            WHERE articles.id = ?
+            ORDER BY articles.date DESC",
+            [$id],
+            true
+        );
+    }
+
+    public static function lastByCategory($category_id)
+    {
+        return self::query(
+            "SELECT articles.id, articles.titre, articles.contenu, categories.titre as categorie
+            FROM articles
+            LEFT JOIN categories
+                ON category_id = categories.id
+            WHERE category_id = ?",
+            [$category_id]
+        );
+    }
 
     /**
      * Get l'url de l'article

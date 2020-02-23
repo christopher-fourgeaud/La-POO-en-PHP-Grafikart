@@ -73,7 +73,7 @@ class Database
 
             $this->pdo = $pdo;
         }
-        return $pdo;
+        return $this->pdo;
     }
 
     /**
@@ -82,10 +82,15 @@ class Database
      * @param string $statement
      * @return array(Objects)
      */
-    public function query(string $statement, string $class_name): array
+    public function query(string $statement, string $class_name, $one = false): array
     {
         $request = $this->getPDO()->query($statement);
-        $data = $request->fetchAll(PDO::FETCH_CLASS, $class_name);
+        $request->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        if ($one) {
+            $data = $request->fetch();
+        } else {
+            $data = $request->fetchAll();
+        }
         return $data;
     }
 
@@ -95,7 +100,7 @@ class Database
      * @param string $class_name
      * @return Object
      */
-    public function prepare(string $statement, array $atributes, string $class_name, bool $one = false): Object
+    public function prepare(string $statement, array $atributes, string $class_name, bool $one = false)
     {
         $request = $this->getPDO()->prepare($statement);
         $request->execute($atributes);
