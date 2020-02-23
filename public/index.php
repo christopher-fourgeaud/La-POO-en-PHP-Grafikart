@@ -1,25 +1,12 @@
 <?php
 
+
 require '../app/Autoloader.php';
 
 App\Autoloader::register();
 
-if (isset($_GET['p'])) {
-    $p = $_GET['p'];
-} else {
-    $p = 'home';
-}
+$app = \App\App::getInstance();
 
-ob_start();
-
-if ($p === 'home') {
-    require '../pages/home.php';
-} elseif ($p === 'article') {
-    require '../pages/article.php';
-} elseif ($p === 'categorie') {
-    require '../pages/categorie.php';
-}
-
-$content = ob_get_clean();
-
-require '../pages/templates/default.php';
+var_dump($app->getTable('Posts'));
+var_dump($app->getTable('Users'));
+var_dump($app->getTable('Categories'));

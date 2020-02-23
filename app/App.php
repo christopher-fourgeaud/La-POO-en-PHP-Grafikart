@@ -2,59 +2,37 @@
 
 namespace App;
 
+use App\Database;
+
 class App
 {
-    /**
-     * Contient l'objet Database
-     *
-     * @var Database
-     */
-    private static $database;
+    private static $_instance;
 
-    private static $title = 'Mon super site';
+    private $db_instance;
 
-    /**
-     * @var string
-     */
-    const DB_NAME = 'bdd-test';
+    public $title = "Mon super site";
 
-    /**
-     * @var string
-     */
-    const DB_HOST = 'localhost';
-
-    /**
-     * @var string
-     */
-    const DB_USER = 'root';
-
-    /**
-     * @var string
-     */
-    const DB_PASS = '';
-
-    public static function getDatabase()
+    public static function getInstance()
     {
-        if (self::$database === null) {
-            self::$database = new Database(self::DB_NAME, self::DB_HOST, self::DB_USER, self::DB_PASS);
+        if (is_null(self::$_instance)) {
+            self::$_instance = new App();
         }
-
-        return self::$database;
+        return self::$_instance;
     }
 
-    public static function notFound()
+    public function getTable($name)
     {
-        header("HTTP/1.0 404 Not Found");
-        header('Location:index.php?p=404');
+        $className = '\\App\\Table\\' . ucfirst($name) . 'Table';
+
+        return new $className();
     }
 
-    public static function getTitle()
+    public function getDatabase()
     {
-        return self::$title;
-    }
-
-    public static function setTitle($title)
-    {
-        self::$title = $title . ' | ' . self::$title;
+        $config = Config::getInstance();
+        if (is_null($this->db_instance)) {
+            $this->db_instance = new Database($config->get('db_name'), $config->get('db_host'), $config->get('db_user'), $config->get('db_password'));
+        }
+        return $this->db_instance;
     }
 }
