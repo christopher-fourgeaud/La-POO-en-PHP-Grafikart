@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Database;
+use App\Database\MysqlDatabase;
 
 class App
 {
@@ -24,14 +24,14 @@ class App
     {
         $className = '\\App\\Table\\' . ucfirst($name) . 'Table';
 
-        return new $className();
+        return new $className($this->getDatabase());
     }
 
     public function getDatabase()
     {
         $config = Config::getInstance();
         if (is_null($this->db_instance)) {
-            $this->db_instance = new Database($config->get('db_name'), $config->get('db_host'), $config->get('db_user'), $config->get('db_password'));
+            $this->db_instance = new MysqlDatabase($config->get('db_name'), $config->get('db_host'), $config->get('db_user'), $config->get('db_password'));
         }
         return $this->db_instance;
     }

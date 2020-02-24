@@ -2,12 +2,18 @@
 
 namespace App\Table;
 
+use App\Database\MysqlDatabase;
+
+
 class Table
 {
     protected $table;
 
-    public function __construct()
+    protected $database;
+
+    public function __construct(MysqlDatabase $database)
     {
+        $this->database = $database;
         if (is_null($this->table)) {
 
             $parts = explode('\\', get_class($this));
@@ -16,5 +22,13 @@ class Table
 
             $this->table = strtolower(str_replace('Table', '', $className));
         }
+    }
+
+    public function all()
+    {
+        return $this->database->query(
+            'SELECT *
+            FROM articles'
+        );
     }
 }
