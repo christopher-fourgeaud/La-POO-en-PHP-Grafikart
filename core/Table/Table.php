@@ -5,16 +5,37 @@ namespace Core\Table;
 use Core\Database\MysqlDatabase;
 
 
-
+/**
+ * Class Table factory
+ */
 class Table
 {
+    /**
+     * Un nom de table en bdd
+     *
+     * @var string
+     */
     protected $table;
 
+    /**
+     * Représente l'instance de la bdd
+     *
+     * @var Database
+     */
     protected $database;
 
+    /**
+     * Construit l'objet Table en y injectant la bdd Mysql
+     *
+     * @param MysqlDatabase $database
+     * 
+     * @return void
+     */
     public function __construct(MysqlDatabase $database)
     {
         $this->database = $database;
+
+        // Si le nom de la table n'est pas renseigné, génère le nom en se basant sur le nom de la classe
         if (is_null($this->table)) {
 
             $parts = explode('\\', get_class($this));
@@ -25,6 +46,11 @@ class Table
         }
     }
 
+    /**
+     * Requète à la bdd qui récupère tout les enregistrements d'une table
+     *
+     * @return array(Objects)|Object
+     */
     public function all()
     {
         return $this->query(
@@ -33,7 +59,14 @@ class Table
         );
     }
 
-    public function find($id)
+    /**
+     * Requète à la bdd qui récupère un seul enregistrement en passant l'id en paramètre
+     *
+     * @param int $id
+     * 
+     * @return object
+     */
+    public function find(int $id): object
     {
         return $this->query(
             "SELECT *
@@ -44,7 +77,16 @@ class Table
         );
     }
 
-    public function query($statement, $attributes = null, $one = false)
+    /**
+     * Retourne une requète préparé si il y a des attributs passé à celle ci sinon retourne une requète classique
+     *
+     * @param string $statement
+     * @param array $attributes
+     * @param boolean $one
+     * 
+     * @return array(object)|object
+     */
+    public function query(string $statement, array $attributes = null, bool $one = false)
     {
         if ($attributes) {
             return $this->database->prepare(

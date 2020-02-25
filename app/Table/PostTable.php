@@ -4,17 +4,23 @@ namespace App\Table;
 
 use Core\Table\Table;
 
-
+/**
+ * Représente la table Post de la bdd
+ */
 class PostTable extends Table
 {
 
-
+    /**
+     * Le nom de la table en bdd
+     *
+     * @var string
+     */
     protected $table = 'articles';
 
     /**
      * Récupère les derniers articles
      *
-     * @return Post
+     * @return array(PostEntity)
      */
     public function last()
     {
@@ -31,9 +37,9 @@ class PostTable extends Table
      * 
      * @param int $id
      * 
-     * @return Post
+     * @return PostEntity
      */
-    public function find($id)
+    public function find($id): object
     {
         return $this->query(
             "SELECT articles.id, articles.titre, articles.contenu, articles.date, categories.titre as categorie

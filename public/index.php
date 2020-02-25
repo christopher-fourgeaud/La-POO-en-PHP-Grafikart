@@ -1,5 +1,6 @@
 <?php
 
+// Crée la constante ROOT qui correspond à la racine du projet
 define('ROOT', dirname(__DIR__));
 
 require  ROOT . '/app/App.php';

@@ -4,6 +4,9 @@ namespace Core\Database;
 
 use PDO;
 
+/**
+ * Classe MysqlDatabase
+ */
 class MysqlDatabase extends Database
 {
     /**
@@ -18,7 +21,7 @@ class MysqlDatabase extends Database
      *
      * @var string
      */
-    private $db_name;
+    private string $db_name;
 
     /**
      * Le nom d'utilisateur de la bdd
@@ -95,7 +98,6 @@ class MysqlDatabase extends Database
         } else {
             $data = $request->fetchAll();
         }
-
         return $data;
     }
 
@@ -103,7 +105,7 @@ class MysqlDatabase extends Database
      * @param string $statement
      * @param array $atributes
      * @param string $class_name
-     * @return Object
+     * @return Object|array(Objects)
      */
     public function prepare(string $statement, array $atributes, string $class_name, bool $one = false)
     {
@@ -116,7 +118,6 @@ class MysqlDatabase extends Database
         } else {
             $data = $request->fetchAll();
         }
-
         return $data;
     }
 }
