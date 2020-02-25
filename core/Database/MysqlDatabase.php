@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Database;
+namespace Core\Database;
 
 use PDO;
 
@@ -95,6 +95,7 @@ class MysqlDatabase extends Database
         } else {
             $data = $request->fetchAll();
         }
+
         return $data;
     }
 

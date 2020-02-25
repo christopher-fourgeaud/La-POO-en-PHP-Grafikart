@@ -1,7 +1,3 @@
-<?php
-
-use App\App;
-?>
 <!doctype html>
 <html lang="en">
 
@@ -15,7 +11,7 @@ use App\App;
     <link rel="icon" href="../../favicon.ico">
     <link rel="canonical" href="https://getbootstrap.com/docs/3.4/examples/starter-template/">
 
-    <title><?= App::getTitle() ?></title>
+    <title><?= App::getInstance()->title ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
@@ -27,7 +23,7 @@ use App\App;
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Project name</a>
+                <a class="navbar-brand" href="index.php">Project name</a>
             </div>
         </div>
     </nav>
