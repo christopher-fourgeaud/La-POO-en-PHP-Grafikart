@@ -6,13 +6,18 @@ use Core\Database\MysqlDatabase;
 
 class DatabaseAuth
 {
-    private $database;
+    private MysqlDatabase $database;
 
     public function __construct(MysqlDatabase $database)
     {
         $this->database = $database;
     }
 
+    /**
+     * Retourne l'id de l'utilisateur connecté
+     *
+     * @return int|bool
+     */
     public function getUserId()
     {
         if ($this->logged()) {
@@ -22,7 +27,7 @@ class DatabaseAuth
     }
 
     /**
-     * Undocumented function
+     * Log l'utilisateur si les informations fournies sont correctes
      *
      * @param string $username
      * @param string $password
@@ -47,7 +52,12 @@ class DatabaseAuth
         return false;
     }
 
-    public function logged()
+    /**
+     * Verifie si l'utilisateur est connecté
+     *
+     * @return bool
+     */
+    public function logged(): bool
     {
         return isset($_SESSION['auth']);
     }

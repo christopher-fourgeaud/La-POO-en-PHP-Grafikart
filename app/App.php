@@ -87,13 +87,23 @@ class App
         return $this->db_instance;
     }
 
-    public function forbidden()
+    /**
+     * Redirection quand accès non autorisé
+     *
+     * @return void
+     */
+    public function forbidden(): void
     {
         header('HTTP/1.0 403 Forbidden');
         die('Accès interdit');
     }
 
-    public function notFound()
+    /**
+     * Redirection quand page introuvable
+     *
+     * @return void
+     */
+    public function notFound(): void
     {
         header('HTTP/1.0 404 Not Found');
         die('Page introuvable');

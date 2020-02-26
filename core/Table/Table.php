@@ -113,8 +113,9 @@ class Table
     }
 
     /**
-     *
-     * @param int $id
+     * Fonction permetant de créer un enregistrement dans la bdd
+     * 
+     * @param array $fields
      * 
      * @return bool
      */
@@ -141,7 +142,10 @@ class Table
 
     /**
      *
+     * Fonction permetant de mettre à jour un enregistrement dans la bdd
+     * 
      * @param int $id
+     * @param array $fields
      * 
      * @return bool
      */
@@ -170,6 +174,8 @@ class Table
 
     /**
      *
+     * Fonction permetant la suppression d'un enregistrement dans la bdd
+     * 
      * @param int $id
      * 
      * @return bool
@@ -184,10 +190,19 @@ class Table
         );
     }
 
-    function extract($key, $value)
+    /**
+     * Transforme un tableau d'objet en tableau de chaine de caractère ou l'on associe la value à la key
+     *
+     * @param string $key
+     * @param string $value
+     * 
+     * @return array
+     */
+    function extract(string $key, string $value): array
     {
         $records = $this->all();
         $return = [];
+
         foreach ($records as $v) {
             $return[$v->$key] = $v->$value;
         }

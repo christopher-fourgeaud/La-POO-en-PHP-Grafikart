@@ -109,6 +109,8 @@ class MysqlDatabase extends Database
      * @param string $statement
      * @param array $atributes
      * @param string $class_name
+     * @param bool $one
+     * 
      * @return Object|array(Objects)
      */
     public function prepare(string $statement, array $atributes, string $class_name = null, bool $one = false)
@@ -133,7 +135,12 @@ class MysqlDatabase extends Database
         return $data;
     }
 
-    public function lastId()
+    /**
+     * Récupère l'id du dernier enregistrement dans la bdd
+     *
+     * @return int
+     */
+    public function lastId(): int
     {
         return $this->getPDO()->lastInsertId();
     }
