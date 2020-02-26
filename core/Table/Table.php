@@ -111,4 +111,86 @@ class Table
             );
         }
     }
+
+    /**
+     *
+     * @param int $id
+     * 
+     * @return bool
+     */
+    public function create(array $fields)
+    {
+        $sql_parts = [];
+
+        $attributes = [];
+
+        foreach ($fields as $key => $value) {
+            $sql_parts[] = "$key = ?";
+            $attributes[] = $value;
+        }
+
+        $sql_part = implode(',', $sql_parts);
+
+        return $this->query(
+            "INSERT INTO {$this->table}
+            SET $sql_part",
+            $attributes,
+            true
+        );
+    }
+
+    /**
+     *
+     * @param int $id
+     * 
+     * @return bool
+     */
+    public function update(int $id, array $fields)
+    {
+        $sql_parts = [];
+
+        $attributes = [];
+
+        foreach ($fields as $key => $value) {
+            $sql_parts[] = "$key = ?";
+            $attributes[] = $value;
+        }
+        $attributes[] = $id;
+
+        $sql_part = implode(',', $sql_parts);
+
+        return $this->query(
+            "UPDATE {$this->table}
+            SET $sql_part
+            WHERE id = ?",
+            $attributes,
+            true
+        );
+    }
+
+    /**
+     *
+     * @param int $id
+     * 
+     * @return bool
+     */
+    public function delete(int $id)
+    {
+        return $this->query(
+            "DELETE FROM {$this->table}
+            WHERE id = ?",
+            [$id],
+            true
+        );
+    }
+
+    function extract($key, $value)
+    {
+        $records = $this->all();
+        $return = [];
+        foreach ($records as $v) {
+            $return[$v->$key] = $v->$value;
+        }
+        return $return;
+    }
 }

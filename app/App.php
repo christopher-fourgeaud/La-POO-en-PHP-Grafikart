@@ -77,7 +77,7 @@ class App
      *
      * @return Database
      */
-    public function getDatabase(): Database
+    public function getDatabase(): MysqlDatabase
     {
         // Récupère l'instance de la base de donnée en lui fournissant les configurations
         $config = Config::getInstance(ROOT . '/config/config.php');
@@ -85,5 +85,17 @@ class App
             $this->db_instance = new MysqlDatabase($config->get('db_name'), $config->get('db_host'), $config->get('db_user'), $config->get('db_password'));
         }
         return $this->db_instance;
+    }
+
+    public function forbidden()
+    {
+        header('HTTP/1.0 403 Forbidden');
+        die('Accès interdit');
+    }
+
+    public function notFound()
+    {
+        header('HTTP/1.0 404 Not Found');
+        die('Page introuvable');
     }
 }
