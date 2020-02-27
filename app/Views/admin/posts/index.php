@@ -1,13 +1,7 @@
-<?php
-
-$posts = App::getInstance()->getTable('Post')->all();
-
-?>
-
 <h1>Administrer les articles</h1>
 
 <p>
-    <a href="?p=posts.add" class="btn btn-success">Ajouter</a>
+    <a href="?p=admin.posts.add" class="btn btn-success">Ajouter</a>
 </p>
 
 <table class="table">
@@ -24,10 +18,10 @@ $posts = App::getInstance()->getTable('Post')->all();
                 <td><?= $post->id ?></td>
                 <td><?= $post->titre ?></td>
                 <td>
-                    <a href="?p=posts.edit&id=<?= $post->id ?>" class="btn btn-primary">Edit</a>
-                    <form action="?p=posts.delete" method="POST" style="display: inline">
+                    <a href="?p=admin.posts.edit&id=<?= $post->id ?>" class="btn btn-primary">Edit</a>
+                    <form action="?p=admin.posts.delete" method="POST" style="display: inline">
                         <input type="hidden" name="id" value="<?= $post->id ?>">
-                        <button type="submit" href="?p=posts.delete&id=<?= $post->id ?>" class="btn btn-danger">Supprimer</button>
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
                     </form>
 
                 </td>
