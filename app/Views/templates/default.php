@@ -23,8 +23,13 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="index.php">Project name</a>
+                <a class="navbar-brand" href="index.php">Accueil</a>
             </div>
+            <ul class="nav navbar-nav">
+                <li><a href="?p=users.login">Login</a></li>
+                <li><a href="?p=admin.posts.index">admin.articles</a></li>
+                <li><a href="?p=admin.categories.index">admin.categories</a></li>
+            </ul>
         </div>
     </nav>
 
