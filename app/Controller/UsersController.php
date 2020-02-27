@@ -8,9 +8,13 @@ use Core\HTML\BootstrapForm;
 
 class UsersController extends AppController
 {
+    /**
+     * Sert la vue et les donnees qui correspondent à la route users.login
+     *
+     * @return void
+     */
     public function login()
     {
-
         $errors = false;
         if (!empty($_POST)) {
             $auth = new DatabaseAuth(App::getInstance()->getDatabase());
@@ -21,7 +25,6 @@ class UsersController extends AppController
                 $errors = true;
             }
         }
-
         $form = new BootstrapForm($_POST);
 
         $this->render('users.login', compact('form', 'errors'));

@@ -2,12 +2,34 @@
 
 namespace Core\Controller;
 
+/**
+ * Main Controller
+ */
 class Controller
 {
-    protected $viewPath;
-    protected $template;
+    /**
+     * Représente le chemin vers le dossier des vues
+     *
+     * @var string
+     */
+    protected string $viewPath;
 
-    protected function render($view, $variables = [])
+    /**
+     * Represente le nom d'un template
+     *
+     * @var string
+     */
+    protected string $template;
+
+    /**
+     * Permet de rendre une vue en lui passant des paramètres
+     *
+     * @param string $view Le nom de la vue
+     * @param array $variables Les données à passer à la vue
+     * 
+     * @return void
+     */
+    protected function render(string $view, array $variables = []): void
     {
         ob_start();
         extract($variables);
