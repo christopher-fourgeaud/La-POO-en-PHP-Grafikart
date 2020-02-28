@@ -8,6 +8,7 @@ class QueryBuilder
     private $conditions = [];
     private $from = [];
 
+
     public function select()
     {
         $this->fields = func_get_args();
