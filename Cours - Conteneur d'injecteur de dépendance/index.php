@@ -4,14 +4,31 @@ echo '<pre>';
 
 require 'DIC.php';
 
+/**
+ * Dummy class Foo
+ */
 class Foo
 {
 }
 
+/**
+ * Dummy class Bar
+ */
 class Bar
 {
-    private $foo;
-    private $name;
+    /**
+     * Dummy property foo
+     *
+     * @var Foo
+     */
+    private Foo $foo;
+
+    /**
+     * Dummy property name
+     *
+     * @var string
+     */
+    private string $name;
 
 
     public function __construct(Foo $foo, string $name = "Christopher")
@@ -21,13 +38,13 @@ class Bar
     }
 }
 
+// DIC = Dependency Injection Container
 $app = new DIC();
 
-$app->set('Bar', function () {
-    return new Bar(new Foo, 'Jordan');
-});
+$foo = new Foo;
 
 var_dump($app->get('Bar'));
+
 
 
 echo '</pre>';

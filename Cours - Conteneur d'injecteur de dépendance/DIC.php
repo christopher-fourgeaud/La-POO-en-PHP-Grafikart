@@ -1,34 +1,70 @@
 <?php
 
+/**
+ * Class DIC Dependency Injection Container
+ */
 class DIC
 {
+
     private $registry = [];
+
     private $factories = [];
 
     private $instances = [];
 
 
-    public function set($key, callable $resolver)
+    /**
+     * Sauvegarde l'instance de la classe passée en paramètre dans le tableau $registry
+     *
+     * @param string $key Le nom de la classe
+     * @param callable $resolver La fonction qui permet de créer la classe
+     * @return void
+     */
+    public function set(string $key, callable $resolver): void
     {
         $this->registry[$key] = $resolver;
     }
 
-    public function setFactory($key, callable $resolver)
+    /**
+     * Sauvegarde l'instance de la classe passée en paramètre dans le tableau $factories
+     *
+     * @param string $key Le nom de la classe
+     * @param callable $resolver La fonction qui permet de créer la classe
+     * @return void
+     */
+    public function setFactory($key, callable $resolver): void
     {
         $this->factories[$key] = $resolver;
     }
 
-    public function setInstance($instance)
+    /**
+     * Initie l'instance de la classe passée en paramètre dans le tableau $instances
+     *
+     * @param Object $instance Nom de la classe
+     * @return void
+     */
+    public function setInstance(Object $instance): void
     {
         $reflection = new ReflectionClass($instance);
+
+        // On enregistre à l'index correpondant au nom de la classe l'instance de celle ci
         $this->instances[$reflection->getName()] = $instance;
     }
 
-    public function get($key)
+    /**
+     * Renvoie l'instance de la classe appelée en paramètre
+     *
+     * @param string $key Nom de la classe
+     * @return void
+     */
+    public function get(string $key)
     {
+        // Renvoie l'objet si celui existe à l'index $key dans le tableau des $factories
         if (isset($this->factories[$key])) {
             return $this->factories[$key]();
         }
+
+        // Si la classe appelée n'existe pas, tente de la crée et de la servir
         if (!isset($this->instances[$key])) {
             if (isset($this->registry[$key])) {
                 $this->instances[$key] = $this->registry[$key]();
@@ -37,7 +73,6 @@ class DIC
                 if ($reflected_class->isInstantiable()) {
                     $constructor = $reflected_class->getConstructor();
                     if ($constructor) {
-                        # code...
                         $parameters = $constructor->getParameters();
                         $constructor_parameters = [];
                         foreach ($parameters as $parameter) {
