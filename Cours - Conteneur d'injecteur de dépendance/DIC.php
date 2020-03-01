@@ -6,10 +6,19 @@
 class DIC
 {
 
+    /**
+     * @var array
+     */
     private $registry = [];
 
+    /**
+     * @var array
+     */
     private $factories = [];
 
+    /**
+     * @var array
+     */
     private $instances = [];
 
 
