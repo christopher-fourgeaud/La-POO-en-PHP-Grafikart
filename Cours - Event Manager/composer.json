@@ -1,0 +1,16 @@
+{
+  "name": "christopher/cours-event-manager",
+  "authors": [
+    {
+      "name": "Christopher Fourgeaud",
+      "email": "christopher.fourgeaud@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Psr\\EventManager\\": "psr/",
+      "App\\": "src/"
+    }
+  },
+  "require": {}
+}
